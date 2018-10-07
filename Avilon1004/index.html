@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- bubble chart codes-->
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, Calibri, Roboto, Open Sans, sans-serif -webkit-backface-visibility: hidden;
+    }
+
+    #chart2 * {
+      box-sizing: inherit;
+    }
+
+    #chart2 h1 {
+      text-align: center;
+      font-family: "Noto Sans KR";
+    }
+
+    #chart2 h2 {
+      font-weight: 'bold';
+    }
+
+    #chart2 svg {
+      margin: auto;
+      display: block;
+    }
+
+    #chart2 .circle-overlay {
+      font-size: 15px;
+      border-radius: 10%;
+      position: absolute;
+      overflow: hidden;
+      /*it's buggy with the foreignObject background right now*/
+      /*background-color: rgba(255,255,255,0.5);*/
+    }
+
+    #chart2 .circle-overlay__inner {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #chart2 .hidden {
+      display: none;
+    }
+
+    #chart2 .node-icon--faded {
+      opacity: 0.2;
+    }
+
+    #chart2 .legend-size circle {
+      fill: rgb(31, 119, 180);
+    }
+  </style>
+  <!-- bubble chart codes end -->
+
+  <!-- gapminder chart codes-->
+  <meta charset="utf-8">
+  <link href="dragit.css" rel="stylesheet" />
+  <!-- <script src="d3.v3.js"></script> -->
+  <!-- <script src="dragit.js"></script> -->
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin-left: 40px;
+      font-weight: 200;
+      font-size: 14px;
+    }
+
+    html,
+    body {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
+  <!-- gapminder ends -->
+
+  <meta charset="utf-8">
+  <title>Avilon Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- noto sans import -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- linechart javascript Files -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.4/d3.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="britecharts.min.js" type="text/javascript"></script> -->
+  <!-- linechart css Files -->
+  <link rel="stylesheet" href="css/britecharts.min.css" type="text/css" />
+
+  <!-- =======================================================
+    Theme Name: Avilon
+    Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--d3 version test-->
+  <script src="js/d3.min.js"></script>
+  <script>
+    d3_bub = d3
+    window.d3 = null
+  </script>
+  <script src="d3.v3.js"></script>
+  <script>
+    d3_gap = d3
+    window.d3 = null
+    // test it worked
+    console.log('v3', d3_bub.version)
+    console.log('v4', d3_gap.version)
+
+    d3 = d3_bub
+  </script>
+  <script src="dragit.js"></script>
+  <!--version test ends-->
+
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="index.html" class="scrollto">Lyricsis</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#intro"><img src="img/logo.png" alt="" title=""></a> -->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-has-children"><a href="#">Analysis</a>
+            <ul>
+              <li><a href="analysis-lyrics.html">Lyrics</a></li>
+              <li><a href="analysis-industry.html">Industry</a></li>
+            </ul>
+          </li>
+          <li class="menu-has-children"><a href="#">More</a>
+            <ul>
+              <li><a href="search_lyricist.html">Lyricist/Composer Top 100</a></li>
+              <li><a href="network_lyricist_gen1.html">Lyricist Network</a></li>
+              <li><a href="network_composer_gen1.html">Composer Network</a></li>
+            </ul>
+          <li class="menu-active"><a href="#team2">Team Lyricsis</a></li>
+          </li>
+          <!-- <li><a href="#contact">Contact Us</a></li> -->
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+
+    <div class="intro-text">
+      <h2>IDOL! Dejavu</h2>
+      <h3 id="subtitle">아이돌 음악으로 분석하는 아이돌 시장의 젠더 불균형</h3>
+      <p>Anaylsis of lyrics about gender inequality in idol groups</p>
+      <a href="#about" class="btn-get-started scrollto">Get Started</a>
+      <!-- <div class="icon"><i class="ion-ios-arrow-down"> -->
+    </div>
+
+    <div class="product-screens">
+
+      <div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">
+        <img src="img/product-screen-1.png" alt="">
+      </div>
+
+      <div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">
+        <img src="img/product-screen-2.png" alt="">
+      </div>
+
+      <div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">
+        <img src="img/product-screen-3.png" alt="">
+      </div>
+
+    </div>
+
+  </section><!-- #intro -->
+
+  <main id="main">
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title">IDOL! Dejavu</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">
+            팀 리릭시스는 젊은 여성들의 시각에서, 그리고 누군가의 팬으로서, '아이돌 시장의 젠더 불균형' 이라는 주제로 이야기를 나눠보고자 합니다.<br>
+            저희는 간혹 유명한 아이돌의 노래를 듣다보면 "또 얼굴이랑 몸매 얘기를 하는 건가?" 하는 기시감이 들곤 합니다.<br>바로 아래의 노래가사들 처럼요. 이런 기시감에 대한 의문에서 프로젝트는 시작합니다.<br>
+            이를 데이터로 증명하고 설명해나가는 과정을 소개합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--==========================
+      가사 예시 소개
+    ============================-->
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="row wow fadeInUp">
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/intro/방탄소년단.png" alt="" width="80%"></div>
+              <h4>호르몬 전쟁</h4>
+              <span>방탄소년단</span><br>
+              <p>그녀 머리 바디 허리 다리<br>
+                말 못하는 범위까지<br>
+                관심 없단 말이<br>
+                남자로선 많이 어이상실
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/intro/블랙핑크.png" alt="" width="80%"></div>
+              <h4>뚜두뚜두</h4>
+              <span>블랙핑크</span><br>
+              <p>착한 얼굴에 그렇지 못한 태도<br>
+                 가녀린 몸매 속 <br>
+                 가려진 volume은 두 배로
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/intro/세븐틴.png" alt="" width="80%"></div>
+              <h4>표정관리</h4>
+              <span>세븐틴<bR></span><br>
+              <p>참 단정해 넌<br>
+                내 눈에만 복장불량<br>
+                발 무릎 발 조차도 안보이게<br>
+                치말 내려야 만족이 돼<br>
+                목까지 단추 꼭꼭 잠궈<br>
+                쇄골이 숨 못 쉬게
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/intro/트와이스.png" alt="" width="80%"></div>
+              <h4>Likey</h4>
+              <span>트와이스</span><br>
+              <p>BB크림 파파파<br>
+                립스틱을 맘맘마<br>
+                카메라에 담아볼까 예쁘게<br>
+                이거 보면 웃어줘 그리고 꼭 눌러줘<br>
+                저 밑에 앙증맞고 새빨간 Heart Heart
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div align="center">
+        <a href="#more-features" class="btn-get-started scrollto">
+          <img src="img/next.png">
+        </a>
+      </div>
+      </div>
+    </section>
+
+    <!--==========================
+          More Features Section
+        ============================-->
+    <section id="more-features">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">문제 정의</h3>
+          <span class="section-divider"></span>
+          <p class="section-description" style="margin-left: 0;">아이돌의 음악 가사 속 성적 대상화와 외향 평가의 빈도가 여성이 남성보다 많을 것 이다.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="box wow fadeInLeft">
+              <div class="icon"><i class="ion-ios-stopwatch-outline"></i></div>
+              <h4 class="title"><a href="">왜 아이돌의 음악을 분석하는가?</a></h4>
+              <p class="description">현재 가요 시장은 아이돌이 차지하는 비중이 굉장히 큽니다. 한국을 넘어서 세계 시장의 젊은 세대에게 막강한 영향력을 행사하고 있습니다. 영향력이 지대한 만큼 그들이 음악을 통해 전달하는 젠더와 관련한 메세지에 집중해보고자 합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box wow fadeInRight">
+              <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
+              <h4 class="title"><a href="">왜 가사를 분석하는가?</a></h4>
+              <p class="description">멜로디가 아닌 가사를 데이터로 선정한 것은 가사가 멜로디에 비해 비교적 명확한 분석이 가능하고, 기획사나 아이돌 스스로도 음악에 담는 메세지로 가사가 큰 축을 담당하기 때문입니다.<br><br>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box wow fadeInLeft">
+              <div class="icon"><i class="ion-ios-heart-outline"></i></div>
+              <h4 class="title"><a href="">왜 문제인가?</a></h4>
+              <p class="description">왜 여성에게 편중된 외양 묘사가 문제가 될까요?
+                저희는 아이돌과 대중매체의 영향을 가장 크게 받는 청소년에 주목했습니다. 한국은 OECD 국가 중 여성 청소년의 비만율은 최하위 수준입니다. 그러나 정상체중 범위에 있는 여학생 10명 중 3, 4명은 본인의 몸에 문제가 있다고 생각한다는 통계가 있습니다. 전문가들은 이런 외모에 관한 압박이 대중매체와 깊은 연관이 있으며, 그 안에 내포하는 왜곡된 미적 기준 때문이라고도 분석합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box wow fadeInRight">
+              <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
+              <h4 class="title"><a href="">IDOL! Dejavu 프로젝트는</a></h4>
+              <p class="description">우리는 아이돌의 가사속에서 이러한 문제점들을 꼽아 보면서 작사가에게는 창작자로서의 책임을, 가수에게는 직접적으로 대중에게 가사를 전달하는 책임을 묻고 건강한 비판을 하고자 합니다.<br><br><br><br>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div style="width:100%; height:100px"></div>
+        <div align="center">
+          <a href="#features" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+      </div>
+    </section><!-- #more-features -->
+
+    <!--==========================
+      Product Featuress Section
+    ============================-->
+    <section id="features">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-12">
+            <div class="section-header wow fadeIn" data-wow-duration="1s">
+              <h3 class="section-title">데이터 수집</h3>
+              <span class="section-divider"></span>
+            </div>
+          </div>
+
+          <div class="container">
+
+            <div class="row">
+
+              <div class="col-12">
+
+                <div class="box wow fadeInRight" data-wow-delay="0.3s">
+                  <div class="icon"><i class="ion-music-note"></i></div>
+                  <h4 class="title"><a href="">Melon 크롤링</a></h4>
+                  <p class="description">2018.09.21 기준 최신</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+
+                <div class="box wow fadeInRight" data-wow-delay="0.3s">
+                  <div class="icon"><i class="icon ion-headphone"></i></div>
+                  <h4 class="title"><a href="">9,548곡</a></h4>
+                  <p class="description">중복곡 제거 후</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+
+                <div class="box wow fadeInRight" data-wow-delay="0.3s">
+                  <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
+                  <h4 class="title"><a href="">27년</a></h4>
+                  <p class="description">서태지와 아이들부터  소녀시대 Oh!GG까지</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+
+                <div class="box wow fadeInRight" data-wow-delay="0.3s">
+                  <div class="icon">
+                    <i class="ion-ios-speedometer-outline"></i></div>
+                  <h4 class="title"><a href="">333개의 그룹</a></h4>
+                  <p class="description">그룹과 유닛(솔로 제외)<br>
+                    Why? 솔로의 경우 아이돌인가? 아티스트인가? 에 대한 모호성이 있으며,<br>해당 프로젝트는 아이돌 산업에서의 여성과 남성 아이돌에 부여하는 이미지와 그 편중성을 보고자했기에 솔로는 제외하였습니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="width:100%; height:100px"></div>
+        <div align="center">
+          <a href="#section-division1" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+      </div>
+    </section><!-- #features -->
+    <div style="width:100%; height:100px"></div>
+
+    <section id="section-division1">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="cta-title">데이터 요약</h3>
+          </div>
+        </div>
+        <div align="center">
+          <a href="#data_sum" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!--==========================
+            예원님 곡 수 그래프
+    ============================-->
+    <section id="data_sum">
+      <div class="container">
+        <div style="width:100%; height:100px"></div>
+        <div class="row">
+
+          <div class="col-12">
+            <div class="section-header wow fadeIn" data-wow-duration="1s">
+              <!-- <h2 class="metricName" id="chart1label"></h2> -->
+              <h3 class="section-title">27년 간의 발매곡 수</h3>
+              <span class="section-divider"></span>
+              <p class="section-description">1992년부터 2018년 9월 21일까지 아이돌의 곡 발매 수 비교입니다. <br>해당 년도로 마우스를 가져가시면 상세한 곡 수를 확인할 수 있습니다.<br><br>
+              <span class="male">&bull;</span> 남자아이돌<br>
+              <span class="female">&bull;</span> 여자아이돌
+              </p>
+            </div>
+          </div>
+        </div>
+        <div id="chart1"></div>
+        <div class="line" width=95% height=300></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.4/d3.min.js" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+        <script src="js/britecharts.min.js" type="text/javascript"></script>
+
+        <script>
+          Song_G_data ={
+           dataByTopic: [
+               {
+                   topicName: 'male',
+                   topic: 1,
+                   dates: [
+                       {
+                       date: '1992',
+                       value: 21
+                       },
+                       {
+                       date: '1993',
+                       value: 40
+                       },
+                      {
+                        date: '1994',
+                        value: 27
+                      },
+                      {
+                        date: '1995',
+                        value: 83
+                      },
+                      {
+                        date: '1996',
+                        value: 108
+                      },
+                      {
+                        date: '1997',
+                        value: 111
+                      },
+                      {
+                        date: '1998',
+                        value: 174
+                      },
+                      {
+                        date: '1999',
+                        value: 189
+                      },
+                      {
+                        date: '2000',
+                        value: 173
+                      },
+                      {
+                        date: '2001',
+                        value: 215
+                      },
+                      {
+                        date: '2002',
+                        value: 212
+                      },
+                      {
+                        date: '2003',
+                        value: 178
+                      },
+                      {
+                        date: '2004',
+                        value: 145
+                      },
+                      {
+                        date: '2005',
+                        value: 141
+                      },
+                      {
+                        date: '2006',
+                        value: 159
+                      },
+                      {
+                        date: '2007',
+                        value: 124
+                      },
+                      {
+                        date: '2008',
+                        value: 173
+                      },
+                      {
+                        date: '2009',
+                        value: 180
+                      },
+                      {
+                        date: '2010',
+                        value: 215
+                      },
+                      {
+                        date: '2011',
+                        value: 250
+                      },
+                      {
+                        date: '2012',
+                        value: 311
+                      },
+                      {
+                        date: '2013',
+                        value: 372
+                      },
+                      {
+                        date: '2014',
+                        value: 419
+                      },
+                      {
+                        date: '2015',
+                        value: 459
+                      },
+                      {
+                        date: '2016',
+                        value: 454
+                      },
+                      {
+                        date: '2017',
+                        value: 484
+                      },
+                      {
+                        date: '2018',
+                        value: 406
+                      }
+                    ]
+               },
+               {
+                   topicName: 'female',
+                   topic: 4,
+                   dates: [
+                       {
+                        date: '1992',
+                        value: 0
+                       },
+                       {
+                        date: '1993',
+                        value: 5
+                       },
+                       {
+                        date: '1994',
+                        value: 0
+                       },
+                      {
+                        date: '1995',
+                        value: 5
+                      },
+                      {
+                        date: '1996',
+                        value: 10
+                      },
+                      {
+                        date: '1997',
+                        value: 17
+                      },
+                      {
+                        date: '1998',
+                        value: 33
+                      },
+                      {
+                        date: '1999',
+                        value: 105
+                      },
+                      {
+                        date: '2000',
+                        value: 122
+                      },
+                      {
+                        date: '2001',
+                        value: 147
+                      },
+                      {
+                        date: '2002',
+                        value: 109
+                      },
+                      {
+                        date: '2003',
+                        value: 74
+                      },
+                      {
+                        date: '2004',
+                        value: 35
+                      },
+                      {
+                        date: '2005',
+                        value: 48
+                      },
+                      {
+                        date: '2006',
+                        value: 44
+                      },
+                      {
+                        date: '2007',
+                        value: 85
+                      },
+                      {
+                        date: '2008',
+                        value: 66
+                      },
+                      {
+                        date: '2009',
+                        value: 104
+                      },
+                      {
+                        date: '2010',
+                        value: 149
+                      },
+                      {
+                        date: '2011',
+                        value: 206
+                      },
+                      {
+                        date: '2012',
+                        value: 250
+                      },
+                      {
+                        date: '2013',
+                        value: 286
+                      },
+                      {
+                        date: '2014',
+                        value: 239
+                      },
+                      {
+                        date: '2015',
+                        value: 294
+                      },
+                      {
+                        date: '2016',
+                        value: 320
+                      },
+                      {
+                        date: '2017',
+                        value: 367
+                      },
+                      {
+                        date: '2018',
+                        value: 216
+                      }
+                   ]
+               }
+           ]
+        };
+
+        function lineChart(metricName, chartID, chartData) {
+          // Line
+          var lineChart = new britecharts.line();
+          var tooltip   = new britecharts.tooltip();
+          var lineData  = chartData;
+
+          d3.selectAll("#"+chartID+"label").text(metricName);
+
+          lineChart
+                .margin({
+                    top: 60,
+                    bottom: 50,
+                    left: 100,
+                    right: 20
+                })
+                .lineCurve('linear')
+                .grid('full')
+                .height(350)
+                .xAxisFormat(britecharts.line().axisTimeCombinations.CUSTOM)
+                .on('customMouseOver', tooltip.show)
+                .on('customMouseMove', tooltip.update)
+                .on('customMouseOut',  tooltip.hide);
+
+          tooltip
+              .title(" ")
+              .shouldShowDateInTitle(false);
+
+
+          d3.select('#'+chartID).datum(chartData).call(lineChart);
+
+          d3.select('#'+chartID +' .metadata-group .vertical-marker-container').datum([]).call(tooltip)
+
+          const redrawChart = () => {
+              let container = d3.select('#'+chartID);
+              let newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+
+              // Setting the new width on the chart
+              lineChart.width(newContainerWidth);
+
+              // Rendering the chart and line again
+              container.datum(lineData).call(lineChart);
+              d3.select('#'+chartID+' .metadata-group .vertical-marker-container').datum([]).call(tooltip)
+          };
+
+          const throttledRedraw =  _.throttle(redrawChart, 200);
+
+          window.addEventListener("resize", throttledRedraw);
+        }
+        lineChart(' ', 'chart1', Song_G_data);
+        </script>
+      </div>
+    </section>
+
+
+    <div style="width:100%; height:100px"></div>
+
+    <div align="center">
+      <a href="#data_genre" class="btn-get-started scrollto">
+        <img src="img/next.png">
+      </a>
+    </div>
+    <!--==========================
+          장르 분포
+    ============================-->
+    <section id="data_genre">
+      <div class="container">
+        <div style="width:100%; height:100px"></div>
+        <div class="row">
+
+          <div class="col-12">
+            <div class="section-header wow fadeIn" data-wow-duration="1s">
+              <h3 class="section-title">장르 비교</h3>
+              <span class="section-divider"></span>
+              <p class="section-description">곡 장르 분포 비교입니다.<br>상대적으로 남자아이돌이 여자아이돌보다 다양한 장르의 곡을 많이 발매한 것을 확인할 수 있습니다.<br></p>
+              <div align="center">
+                <img src="img/genre_piechart.png" width="100%"></img>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="width:100%; height:100px"></div>
+        <div align="center">
+          <a href="#top30" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+        <div style="width:100%; height:150px"></div>
+    </section>
+    <!--==========================
+            melon top30 bubble chart
+    ============================-->
+    <section id="top30">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-12">
+            <div class="section-header wow fadeIn" data-wow-duration="1s">
+              <h3 class="section-title">Melon Fan Top30</h3>
+              <span class="section-divider"></span>
+              <p class="section-description">멜론 팬 수를 기준으로 한 인기 순위 Top 30 버블 차트입니다. 각 아티스트의 크기는 곡 수를 의미합니다.<br>
+                버블을 터치하거나 더블 클릭 하시면 해당 그룹의 이름, 멤버, 곡 수, 인기 곡을 확인하실 수 있습니다. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart2">
+
+
+        <svg width="100%" height="800" font-family="Noto Sans KR" font-size="8" text-anchor="middle"></svg>
+
+        <script src="js/d3.min.js"></script>
+        <script src="js/d3-legend.min.js"></script>
+        <!-- <script src="js/d3.min.js"></script>
+        <script src="js/d3-legend.min.js"></script> -->
+        <script>
+          // Based loosely from this D3 bubble graph https://bl.ocks.org/mbostock/4063269
+            // And this Forced directed diagram https://bl.ocks.org/mbostock/4062045
+            let data = [ {
+              cat: 'male', name: '엑소', value: 69,
+              icon: 'img/엑소.png',
+              desc: `
+                <strong>멤버</strong><br>
+                카이, 첸, 세훈, 레이, 시우민, <br>백현, 디오, 수호, 찬열<br><br>
+                <strong>발매곡 수</strong><br>
+                69<br><br>
+                <strong>인기곡</strong><br>
+                <strong><a href="https://www.youtube.com/watch?v=b6ycw7p9-bE" style="color:#20A2A2">전야(Eve)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '방탄소년단', value: 113,
+              icon: 'img/방탄소년단.png',
+              desc: `
+                <strong>멤버</strong><br>
+                RM, 진, SUGA, J-hope, 지민, 뷔, 정국<br><br>
+                <strong>발매곡 수</strong><br>
+                113<br><br>
+                <strong>인기곡</strong><br>
+                <strong><a href="https://www.youtube.com/watch?v=xEeFrLSkMm8" style="color:#20A2A2">봄날(Spring Day)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '빅뱅', value: 88,
+              icon: 'img/빅뱅.png',
+              desc: `
+                <strong>멤버</strong><br>
+                G-DRAGON, 태양, 대성, T.O.P, 승리<br><br>
+                <strong>발매곡 수</strong><br>
+                88<br><br>
+                <strong>인기곡</strong><br>
+                <strong><a href="https://www.youtube.com/watch?v=2ips2mM7Zqw" style="color:#20A2A2">뱅뱅뱅(BANG BANG BANG)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '워너원', value: 15,
+              icon: 'img/워너원.png',
+              desc: `
+              <strong>멤버</strong><br>
+              강다니엘, 박지훈, 이대휘, 김재환, 옹성우, 박우진,<br>
+              라이관린, 윤지성, 황민현, 배진영, 하성운<br><br>
+              <strong>발매곡 수</strong><br>
+              15<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=EVaV7AwqBWg" style="color:#20A2A2">에너제틱(Energetic) </a></strong>
+              `
+            }, {
+              cat: 'female', name: '레드벨벳', value: 65,
+              icon: 'img/레드벨벳.png',
+              desc: `
+              <strong>멤버</strong><br>
+              웬디, 아이린, 슬기, 조이, 예리<br><br>
+              <strong>발매곡 수</strong><br>
+              65<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=WyiIGEHQP8o" style="color:#AA37F5">빨간 맛(Red Flavor)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '마마무', value: 62,
+              icon: 'img/마마무.png',
+              desc: `
+              <strong>멤버</strong><br>
+              솔라, 문별, 휘인, 화사<br><br>
+              <strong>발매곡 수</strong><br>
+              62<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=0FB2EoKTK_Q" style="color:#AA37F5">별이 빛나는 밤(Starry Night)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '위너', value: 31,
+              icon: 'img/위너.png',
+              desc: `
+              <strong>멤버</strong><br>
+              강승윤, 이승훈, MINO, 김진우<br><br>
+              <strong>발매곡 수</strong><br>
+              31<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=4tBnF46ybZk" style="color:#20A2A2">REALLY REALLY</a></strong>
+              `
+            }, {
+              cat: 'female', name: '트와이스', value: 51,
+              icon: 'img/트와이스.png',
+              desc: `
+              <strong>멤버</strong><br>
+              나연, 정연, 모모, 사나, 지효,<br>
+              미나, 다현, 채영, 쯔위<br><br>
+              <strong>발매곡 수</strong><br>
+              51<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=c7rCyll5AeY" style="color:#AA37F5">CHEER UP</a></strong>
+              `
+            }, {
+              cat: 'male', name: '비투비', value: 95,
+              icon: 'img/비투비.png',
+              desc: `
+              <strong>멤버</strong><br>
+              서은광, 이민혁, 이창섭, 임현식,<br>
+              프니엘, 정일훈, 육성재<br><br>
+              <strong>발매곡 수</strong><br>
+              95<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=4bykFvnRzno" style="color:#20A2A2">그리워하다(Missing You)</a></strong>
+              `
+            },  {
+              cat: 'male', name: '비스트', value: 83,
+              icon: 'img/비스트.png',
+              desc: `
+              <strong>멤버</strong><br>
+              윤두준, 용준형, 양요섭, 이기광,<br>
+              손동운, 장현승<br><br>
+              <strong>발매곡 수</strong><br>
+              83<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=oCmMbil5wCY" style="color:#20A2A2">12시 30분(12:30)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '첸백시', value: 16,
+              icon: 'img/첸백시.png',
+              desc: `
+              <strong>멤버</strong><br>
+              첸, 백현, 시우민<br><br>
+              <strong>발매곡 수</strong><br>
+              16<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=Ib674A1yMtg" style="color:#20A2A2">花요일(bloomingday)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '에이핑크', value: 51,
+              icon: 'img/에이핑크.png',
+              desc: `
+              <strong>멤버</strong><br>
+              정은지, 손나은, 박초롱, 오하영,
+              <br>김남주, 윤보미<br><br>
+              <strong>발매곡 수</strong><br>
+              51<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=8dVjSvLzD1I" style="color:#AA37F5">LUV</a></strong>
+              `
+            }, {
+              cat: 'male', name: '세븐틴', value: 60,
+              icon: 'img/세븐틴.png',
+              desc: `
+              <strong>멤버</strong><br>
+              S.COUPS, 정한, 조슈아, 준, 호시, 원우,<br>
+              도겸, 민규, 디에잇, 승관,<br>
+              Vernon, 디노, WOOZI <br><br>
+              <strong>발매곡 수</strong><br>
+              60<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=zEkg4GBQumc" style="color:#20A2A2">울고 싶지 않아(Don't Wanna Cry)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '블락비', value: 44,
+              icon: 'img/블락비.png',
+              desc: `
+              <strong>멤버</strong><br>
+              지코, 박경, P.O , 태일 , 재효 , 유권 , 비범<br><br>
+              <strong>발매곡 수</strong><br>
+              44<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=o0WCva5Stk4" style="color:#20A2A2">HER</a></strong>
+              `
+            }, {
+              cat: 'male', name: '인피니트', value: 82,
+              icon: 'img/인피니트.png',
+              desc: `
+              <strong>멤버</strong><br>
+              김성규, 엘, 장동우 , 남우현, 이성열 , 이성종<br><br>
+              <strong>발매곡 수</strong><br>
+              82<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=Cmhca-ROWwQ" style="color:#20A2A2">태풍(The Eye)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '아이콘', value: 32,
+              icon: 'img/아이콘.png',
+              desc: `
+              <strong>멤버</strong><br>
+              B.I, 김진환, BOBBY, 송윤형,<br>
+              구준회, 김동혁, 정찬우<br><br>
+              <strong>발매곡 수</strong><br>
+              32<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=vecSVX1QYbQ" style="color:#20A2A2">사랑을 했다(LOVE SCENARIO)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '샤이니', value: 134,
+              icon: 'img/샤이니.png',
+              desc: `
+              <strong>멤버</strong><br>
+              종현, 키, 태민, 온유, 민호<br><br>
+              <strong>발매곡 수</strong><br>
+              134<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=UF53cptEE5k" style="color:#20A2A2">View</a></strong>
+              `
+            }, {
+              cat: 'female', name: '블랙핑크', value: 9,
+              icon: 'img/블랙핑크	.png',
+              desc: `
+              <strong>멤버</strong><br>
+              지수, 제니, 로제, 리사<br><br>
+              <strong>발매곡 수</strong><br>
+              9<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=IHNzOHi8sJs" style="color:#AA37F5">뚜두뚜두(DDU-DU DDU-DU)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '여자친구', value: 50,
+              icon: 'img/여자친구.png',
+              desc: `
+              <strong>멤버</strong><br>
+              소원, 예린 , 은하 , 유주 , 신비 , 엄지<br><br>
+              <strong>발매곡 수</strong><br>
+              50<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=0VKcLPdY9lI" style="color:#AA37F5">시간을 달려서(Rough)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '소녀시대', value: 117,
+              icon: 'img/소녀시대.png',
+              desc: `
+              <strong>멤버</strong><br>
+              태연, 써니, 유리, 수영, 티파니,<br>
+              서현, 윤아, 효연<br><br>
+              <strong>발매곡 수</strong><br>
+              117<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=HQzu7NYlZNQ" style="color:#AA37F5">PARTY</a></strong>
+              `
+            }, {
+              cat: 'male', name: '뉴이스트', value: 37,
+              icon: 'img/뉴이스트.png',
+              desc: `
+              <strong>멤버</strong><br>
+              JR, Aron , 백호 , 황민현, 렌 <br><br>
+              <strong>발매곡 수</strong><br>
+              37<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=MwlKalNwGdk" style="color:#20A2A2">여보세요(HELLO)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '아이오아이', value: 16,
+              icon: 'img/아이오아이.png',
+              desc: `
+              <strong>멤버</strong><br>
+              정채연, 소미, 세정, 최유정, 청하,<br>
+              김소혜, 결경, 김도연, 미나, 나영, 유연정<br><br>
+              <strong>발매곡 수</strong><br>
+              16<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=kbdW2LaKlnw" style="color:#AA37F5">소나기(DOWNPOUR)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '빅스', value: 80,
+              icon: 'img/빅스.png',
+              desc: `
+              <strong>멤버</strong><br>
+              엔, 레오 , 라비 , 켄 , 홍빈 , 혁<br><br>
+              <strong>발매곡 수</strong><br>
+              80<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=vqzBrI76e4g" style="color:#20A2A2">사슬(Chained up)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '하이라이트', value: 13,
+              icon: 'img/하이라이트.png',
+              desc: `
+              <strong>멤버</strong><br>
+              윤두준, 용준형, 양요섭, 이기광, 손동운<br><br>
+              <strong>발매곡 수</strong><br>
+              13<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=1kcwvcbO8MI" style="color:#20A2A2">얼굴 찌푸리지 말아요(Plz Don’t Be Sad)</a></strong>
+              `
+            }, {
+              cat: 'male', name: '갓세븐', value: 82,
+              icon: 'img/갓세븐.png',
+              desc: `
+              <strong>멤버</strong><br>
+              JB, 진영 , 마크 , 잭슨, 영재 , 뱀뱀, 유겸<br><br>
+              <strong>발매곡 수</strong><br>
+              82<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=ktc8XDBq93k" style="color:#20A2A2">You Are</a></strong>
+              `
+            }, {
+              cat: 'female', name: '씨스타', value: 60,
+              icon: 'img/씨스타.png',
+              desc: `
+              <strong>멤버</strong><br>
+              효린, 소유, 다솜, 보라<br><br>
+              <strong>발매곡 수</strong><br>
+              15<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=oL2AlXWVbKU" style="color:#AA37F5">Loving U</a></strong>
+              `
+            }, {
+              cat: 'male', name: '뉴이스트 W', value: 16,
+              icon: 'img/뉴이스트w.png',
+              desc: `
+              <strong>멤버</strong><br>
+              JR, Aron, 백호, 렌<br><br>
+              <strong>발매곡 수</strong><br>
+              16<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=jBqET3GCmHM" style="color:#20A2A2">있다면(IF YOU)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '에프엑스', value: 70,
+              icon: 'img/에프엑스.png',
+              desc: `
+              <strong>멤버</strong><br>
+              크리스탈, 루나, 빅토리아, 엠버<br><br>
+              <strong>발매곡 수</strong><br>
+              70<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=4j7Umwfx60Q" style="color:#AA37F5">4 Walls</a></strong>
+              `
+            }, {
+              cat: 'female', name: '이엑스아이디', value: 41,
+              icon: 'img/이엑스아이디.png',
+              desc: `
+              <strong>멤버</strong><br>
+              LE, 정화 , 혜린 , 솔지 , 하니<br><br>
+              <strong>발매곡 수</strong><br>
+              41<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=hfXZ6ydgZyo" style="color:#AA37F5">위아래(UP&DOWN)</a></strong>
+              `
+            }, {
+              cat: 'female', name: '걸스데이', value: 54,
+              icon: 'img/걸스데이.png',
+              desc: `
+              <strong>멤버</strong><br>
+              소진, 민아, 유라, 혜리<br><br>
+              <strong>발매곡 수</strong><br>
+              15<br><br>
+              <strong>인기곡</strong><br>
+              <strong><a href="https://www.youtube.com/watch?v=JO7qQ7peKeM" style="color:#AA37F5">Something</a></strong>
+              `
+            },
+          ];
+          </script>
+
+        <script>
+          let svg = d3.select('#chart2 svg');
+            let width = document.body.clientWidth; // get width in pixels
+            let height = +svg.attr('height');
+            let centerX = width * 0.5;
+            let centerY = height * 0.5;
+            let strength = 0.05;
+            let focusedNode;
+
+            let format = d3.format(',d');
+
+            // let scaleColor = d3.scaleOrdinal(d3.schemeCategory20);
+            let color = d3.scaleOrdinal()
+              .domain(['male', 'female'])
+              .range(['#20C2AA', '#7A37F5']);
+
+            // use pack to calculate radius of the circle
+            let pack = d3.pack()
+              .size([width , height ])
+              .padding(1.5);
+
+            let forceCollide = d3.forceCollide(d => d.r + 1);
+
+            // use the force
+            let simulation = d3.forceSimulation()
+              // .force('link', d3.forceLink().id(d => d.id))
+              .force('charge', d3.forceManyBody())
+              .force('collide', forceCollide)
+              // .force('center', d3.forceCenter(centerX, centerY))
+              .force('x', d3.forceX(centerX ).strength(strength))
+              .force('y', d3.forceY(centerY ).strength(strength));
+
+            // reduce number of circles on mobile screen due to slow computation
+            if ('matchMedia' in window && window.matchMedia('(max-device-width: 767px)').matches) {
+              data = data.filter(el => {
+                return el.value >= 50;
+              });
+            }
+
+            let root = d3.hierarchy({ children: data })
+              .sum(d => d.value);
+
+            // we use pack() to automatically calculate radius conveniently only
+            // and get only the leaves
+            let nodes = pack(root).leaves().map(node => {
+              console.log('node:', node.x, (node.x - centerX) * 2);
+              const data = node.data;
+              return {
+                x: centerX + (node.x - centerX) * 3, // magnify start position to have transition to center movement
+                y: centerY + (node.y - centerY) * 3,
+                r: 0, // for tweening
+                radius: node.r, //original radius
+                id: data.cat + '.' + (data.name.replace(/\s/g, '-')),
+                cat: data.cat,
+                name: data.name,
+                value: data.value,
+                icon: data.icon,
+                desc: data.desc,
+              }
+            });
+            simulation.nodes(nodes).on('tick', ticked);
+
+            svg.style('background-color', '#FFFFFF');
+            let node = svg.selectAll('.node')
+              .data(nodes)
+              .enter().append('g')
+              .attr('class', 'node')
+              .call(d3.drag()
+                .on('start', (d) => {
+                  if (!d3.event.active) simulation.alphaTarget(0.2).restart();
+                  d.fx = d.x;
+                  d.fy = d.y;
+                })
+                .on('drag', (d) => {
+                  d.fx = d3.event.x;
+                  d.fy = d3.event.y;
+                })
+                .on('end', (d) => {
+                  if (!d3.event.active) simulation.alphaTarget(0);
+                  d.fx = null;
+                  d.fy = null;
+                }));
+
+            node.append('circle')
+              .attr('id', d => d.id)
+              .attr('r', 0)
+              .style('fill', d => color(d.cat))
+              .attr('fill-opacity', 0.3)
+              .transition().duration(2000).ease(d3.easeElasticOut)
+                .tween('circleIn', (d) => {
+                  let i = d3.interpolateNumber(0, d.radius);
+                  return (t) => {
+                    d.r = i(t);
+                    simulation.force('collide', forceCollide);
+                  }
+                })
+
+            node.append('clipPath')
+              .attr('id', d => `clip-${d.id}`)
+              .append('use')
+              .attr('xlink:href', d => `#${d.id}`);
+
+            // display text as circle icon
+            node.filter(d => !String(d.icon).includes('img/'))
+              .append('text')
+              .classed('node-icon', true)
+              .attr('clip-path', d => `url(#clip-${d.id})`)
+              .selectAll('tspan')
+              .data(d => d.icon.split(';'))
+              .enter()
+                .append('tspan')
+                .attr('x', 0)
+                .attr('y', (d, i, nodes) => (13 + (i - nodes.length / 2 - 0.5) * 10))
+                .text(name => name);
+
+            // display image as circle icon
+            node.filter(d => String(d.icon).includes('img/'))
+              .append('image')
+              .classed('node-icon', true)
+              .attr('clip-path', d => `url(#clip-${d.id})`)
+              .attr('xlink:href', d => d.icon)
+              .attr('x', d => - d.radius)
+              .attr('y', d => - d.radius)
+              .attr('height', d => d.radius * 2)
+              .attr('width', d => d.radius * 2)
+
+            node.append('title')
+              .text(d => (d.cat + '::' + d.name + '\n' + format(d.value)));
+
+            let legendOrdinal = d3.legendColor()
+              .scale(color)
+              .shape('circle');
+
+            let legend = svg.append('g')
+              .classed('legend-color', true)
+              .attr('text-anchor', 'start')
+              .attr('transform','translate(20,30)')
+              .style('font-size','12px')
+              .call(legendOrdinal);
+
+            let infoBox = node.append('foreignObject')
+              .classed('circle-overlay hidden', true)
+              .attr('x', -350 * 0.5 * 0.8)
+              .attr('y', -350 * 0.5 * 0.8)
+              .attr('height', 350 * 0.8)
+              .attr('width', 350 * 0.8)
+                .append('xhtml:div')
+                .classed('circle-overlay__inner', true);
+
+            infoBox.append('h2')
+              .classed('circle-overlay__title', true)
+              .text(d => d.name);
+
+            infoBox.append('p')
+              .classed('circle-overlay__body', true)
+              .html(d => d.desc);
+
+
+            node.on('click', (currentNode) => {
+              d3.event.stopPropagation();
+              console.log('currentNode', currentNode);
+              let currentTarget = d3.event.currentTarget; // the <g> el
+
+              if (currentNode === focusedNode) {
+                // no focusedNode or same focused node is clicked
+                return;
+              }
+              let lastNode = focusedNode;
+              focusedNode = currentNode;
+
+              simulation.alphaTarget(0.2).restart();
+              // hide all circle-overlay
+              d3.selectAll('.circle-overlay').classed('hidden', true);
+              d3.selectAll('.node-icon').classed('node-icon--faded', false);
+
+              // don't fix last node to center anymore
+              if (lastNode) {
+                lastNode.fx = null;
+                lastNode.fy = null;
+                node.filter((d, i) => i === lastNode.index)
+                  .transition().duration(1000).ease(d3.easePolyOut)
+                  .tween('circleOut', () => {
+                    let irl = d3.interpolateNumber(lastNode.r, lastNode.radius);
+                    return (t) => {
+                      lastNode.r = irl(t);
+                    }
+                  })
+                  .on('interrupt', () => {
+                    lastNode.r = lastNode.radius;
+                  });
+              }
+
+              // if (!d3.event.active) simulation.alphaTarget(0.5).restart();
+
+              d3.transition().duration(1000).ease(d3.easePolyOut)
+                .tween('moveIn', () => {
+                  console.log('tweenMoveIn', currentNode);
+                  let ix = d3.interpolateNumber(currentNode.x, centerX);
+                  let iy = d3.interpolateNumber(currentNode.y, centerY);
+                  let ir = d3.interpolateNumber(currentNode.r, centerY * 0.5);
+                  return function (t) {
+                    // console.log('i', ix(t), iy(t));
+                    currentNode.fx = ix(t);
+                    currentNode.fy = iy(t);
+                    currentNode.r = ir(t);
+                    simulation.force('collide', forceCollide);
+                  };
+                })
+                .on('end', () => {
+                  simulation.alphaTarget(0);
+                  let $currentGroup = d3.select(currentTarget);
+                  $currentGroup.select('.circle-overlay')
+                    .classed('hidden', false);
+                  $currentGroup.select('.node-icon')
+                    .classed('node-icon--faded', true);
+
+                })
+                .on('interrupt', () => {
+                  console.log('move interrupt', currentNode);
+                  currentNode.fx = null;
+                  currentNode.fy = null;
+                  simulation.alphaTarget(0);
+                });
+
+            });
+
+            // blur
+            d3.select(document).on('click', () => {
+              let target = d3.event.target;
+              // check if click on document but not on the circle overlay
+              if (!target.closest('#circle-overlay') && focusedNode) {
+                focusedNode.fx = null;
+                focusedNode.fy = null;
+                simulation.alphaTarget(0.2).restart();
+                d3.transition().duration(1000).ease(d3.easePolyOut)
+                  .tween('moveOut', function () {
+                    console.log('tweenMoveOut', focusedNode);
+                    let ir = d3.interpolateNumber(focusedNode.r, focusedNode.radius);
+                    return function (t) {
+                      focusedNode.r = ir(t);
+                      simulation.force('collide', forceCollide);
+                    };
+                  })
+                  .on('end', () => {
+                    focusedNode = null;
+                    simulation.alphaTarget(0);
+                  })
+                  .on('interrupt', () => {
+                    simulation.alphaTarget(0);
+                  });
+
+                // hide all circle-overlay
+                d3.selectAll('.circle-overlay').classed('hidden', true);
+                d3.selectAll('.node-icon').classed('node-icon--faded', false);
+              }
+            });
+
+            function ticked() {
+              node
+                .attr('transform', d => `translate(${d.x},${d.y})`)
+                .select('circle')
+                  .attr('r', d => d.r);
+            }
+          </script>
+
+      </div>
+      <div style="width:100%; height:50px"></div>
+      <div align="center">
+        <a href="#faq" class="btn-get-started scrollto">
+          <img src="img/next.png">
+        </a>
+      </div>
+      <div style="width:100%; height:60px"></div>
+    </section>
+
+    <!--==========================
+        가설 소개
+      ============================-->
+    <section id="faq">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">가설 소개</h3>
+          <span class="section-divider"></span>
+          <p class="section-description"><br>
+          </p>
+        </div>
+
+        <ul id="faq-list" class="wow fadeInUp">
+          <li>
+            <a data-toggle="collapse" class="collapsed" style="color:#20C2AA">가사 속에서 여성의 외모를 언급하거나 여성의 신체부위를 선정적으로 표현하는 빈도가 높을 것이다.</a>
+          </li>
+          <li>
+            <a data-toggle="collapse" class="collapsed" style="color:#20C2AA">아이돌 노래에서 남성 작사/작곡가의 참여가 여성 작사/작곡가보다 많을 것이다.</a>
+          </li>
+        </ul>
+        <div style="width:100%; height:100px"></div>
+      </div>
+    </section><!-- #faq -->
+
+    <!--==========================
+      QnA Section
+    ============================-->
+    <section id="qna">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">Q&A</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">질문에 답합니다.</p>
+        </div>
+
+        <ul id="qna-list" class="wow fadeInUp">
+          <li>
+            <a data-toggle="collapse" class="collapsed" href="#qna1">이 주제를 선정하게 된 이유, 주제 선정의 프로세스가 궁금합니다. <i class="ion-android-remove"></i></a>
+            <div id="qna1" class="collapse" data-parent="#qna-list">
+              <p>
+                소설, 가사 등 텍스트 기반 매체 속 젠더 불균형에 관심이 많았습니다.<br>
+                우리가 가진 기술로 이러한 부분을 분석하고, 더 나아가 개선할 수 있으면 좋겠다고 생각했습니다.<br>
+                또한 데이터 분석 분야에도 여성의 관점이 부족하다고 생각해 이러한 프로젝트를 통해 다른 관점을 제시하고 싶었습니다.<br>
+                데잇걸즈는 ‘OST’ 라는 방법을 통해 팀과 주제 선정을 했습니다.<br>
+                이는 각자가 생각하는 주제를 발표하고, 각 주제에 대해 자유로운 토론을 거쳐 자신이 관심 있는 주제의 팀에 합류하는 방식입니다.<br>
+                이런 방법을 통해 해당 주제에 관심을 가진 멤버가 모이게 되었습니다.<br>
+                데잇걸즈에서 이러한 데이터를 함께 분석해볼 기회가 있어서 감사했습니다.<br>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#qna2" class="collapsed">음원 차트 top100 등 사회적 영향력이 큰 곡들에 대한 상세분석을 진행해볼 계획이 있나요? <i class="ion-android-remove"></i></a>
+            <div id="qna2" class="collapse" data-parent="#qna-list">
+              <p>
+                음원차트 top100에 들어간 노래들, 타이틀 곡, 또는 top100 작사가들의 가사를 중심으로 분석을 해보고 싶습니다.<br>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#qna3" class="collapsed">여남 아이돌의 작사작곡에 대한 교육의 기회가 다른 걸까요? <i class="ion-android-remove"></i></a>
+            <div id="qna3" class="collapse" data-parent="#qna-list">
+              <p>
+                모든 기획사를 대표한다고 할 수는 없지만 3대 기획사인 sm, yg, jyp의 경우<br>
+                연습생시절부터 작사,작곡,외국어 등 학교처럼 알려주는 교육체계가 형성되어 있습니다.<br>
+                이것을 통해 교육기회가 다른건 아니라는 것을 알 수 있는데요.<br>
+                그러나 여성 아이돌은 남성에 비해 한정적인 이미지를 갖고 있고, 프로듀싱의 자유도가 떨어진다는 내용은 여러 인터뷰, 그리고 저희의 데이터로 파악할 수 있습니다.<br>
+                교육의 기회와 별개로 참여 기회가 막힌 것에 저희는 중점을 두었습니다.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#qna4" class="collapsed">아이돌의 작사 작곡 참여율이 왜 중요한 지표일까요?
+<i class="ion-android-remove"></i></a>
+            <div id="qna4" class="collapse" data-parent="#qna-list">
+              <p>
+                이전까지의 아이돌, 대중가요의 가사분석은 시대적, 사회적으로 변화된 형태를 중점적으로 분석한 경우가 대부분이었다.<br>
+                우리는 남자아이돌과 여자아이돌의 가사를 중점적으로 비교분석해보며 성별에 따라 가사가 어떤 식으로 표현되는지 분석한다.<br>
+                또한 노래가사속의 여성혐오로 논란이 되었던 그룹들이 상당히 있다.<br>
+                아이돌이 직접 작사활동에 참여하지 않더라도 어떤 가사의 곡을 노래하는지, 어떤 안무를 선보이는지에 대한 책임이 있을 것이다.<br>
+                우리는 아이돌의 가사속에서 이러한 문제점들을 꼽아 보면서 작사가에게는 창작자로서의 책임을,<br>
+                가수에게는 직접적으로 대중에게 가사를 전달하는 책임을 묻고 건강한 비판을 하고자 한다.<br>
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#qna5" class="collapsed">사회적으로 의미있는 영향력을 끼치기 위해 더 구상하고 계신 후속 연계 프로젝트가 있나요?
+<i class="ion-android-remove"></i></a>
+            <div id="qna5" class="collapse" data-parent="#qna-list">
+              <p>
+                유튜브/SNS 카드 뉴스 등을 통해 대중들에게 아이돌 산업 내의 젠더 불균형에 대한 문제 의식을 전달할 수 있을 것이라 생각합니다.<br>
+                이후 연계 프로젝트로는 여성 혐오적인 텍스트를 걸러내는 알고리즘 개발, <br>
+                여성의 관점이 담긴 텍스트 자동 생성 모델 개발(소설, 시 등)-여성작가작품으로 등을 생각하고 있습니다.<br>
+              </p>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section><!-- #qna -->
+
+    <!--==========================
+            Tech skill section
+          ============================-->
+    <section id="team2" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">Tools we used</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">
+            우리는 Python을 기반으로 이 프로젝트를 진행했습니다.<br>
+            데이터 수집을 위해 Selenium 을 사용했고, 전처리와 분석을 위해 pandas, numpy 등을,<br>
+            자연어처리를 위해 soynlp, gensim, word2vec, konlpy, LDA 등을 활용했습니다.<br>
+            또한 matplotlib, D3와 Rechart 등을 활용해 시각화하였습니다.<br>
+            <br>
+            Git과 Github, 구글 드라이브를 활용하여 협업하였고, Slack을 이용해 커뮤니케이션하였습니다.
+          </p>
+        </div>
+
+    <!--==========================
+            Our Team Section
+          ============================-->
+          <section id="team2" class="section-bg">
+            <div class="container">
+              <div class="section-header">
+                <h3 class="section-title">Lyricsis</h3>
+                <span class="section-divider"></span>
+                <p class="section-description">리릭시스란<br>
+                  가사를 뜻하는 'Lyrics' 와 여성을 뜻하는 'Sis'의 합성어로 가사를 분석하는 여성,<br>그리고 여성의 관점에서 가사를 해석해본다는 의미를 가지고 있습니다. </p>
+              </div>
+              <div class="row wow fadeInUp">
+                <div class="member">
+                  <div class="pic" style="height:auto; margin-bottom:10px;"><img src="img/team/team.PNG" alt=""></div>
+                  <div class="m_name_box">
+
+                    <div class="m_name">
+                      <h4 class="name">권가빈</h4>
+                      <p>크롤링 코드 작성<br>작사/작곡가 데이터 전처리<br>
+                        작사/작곡가 랭킹 데이터 처리<br>작사/작곡가 네트워크 시각화<br>홈페이지 제작<p>
+                    </div>
+
+                    <div class="m_name">
+                      <h4 class="name">정지은</h4>
+                      <p>word2vec<br>모델 학습/임베딩<br>단어유사도 TSNE시각화<br>
+                        텐서플로우 with LSTM<br>모델 학습 및 가사생성<p>
+                    </div>
+
+                    <div class="m_name">
+                      <h4 class="name">박소현</h4>
+                      <p>크롤링 설계<br>음악 가수 데이터 수집<br>멤버 작사작곡 참여율 전처리
+                        <br>인기 순위 전처리<br>가수 정보 버블차트<br>홈페이지 제작<br>디자인<p>
+                    </div>
+
+                    <div class="m_name">
+                      <h4 class="name">차소영</h4>
+                      <p> KoNLpy 형태소/품사 분석<br>세대별 아이돌 전처리/가사 분석<br>버블차트<br>홈페이지 제작<p>
+                    </div>
+
+                    <div class="m_name">
+                      <h4 class="name">정예원</h4>
+                      <p>노래 데이터 전처리<br>성별 시계열 시각화<br>작사/작곡가 검색차트 제작<br>홈페이지 제작<p>
+                    </div>
+
+                    <div class="m_name">
+                      <h4 class="name">김윤경</h4>
+                      <p>프로젝트 플래닝<br>텍스트 마이닝<br>
+                        -맥락,어미,빈도 분석<br>
+                        크롤링 설계<br>데이터 시각화<br>홈페이지 제작<p>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div style="width:100%; height:60px"></div>
+          </section><!-- #team -->
+</main>
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="#intro" class="scrollto">Home</a>
+            <a href="#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+  <!-- gapminder code-->
+  <script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+
+</body>
+
+</html>

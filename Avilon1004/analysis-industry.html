@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- bubble chart codes-->
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, Calibri, Roboto, Open Sans, sans-serif -webkit-backface-visibility: hidden;
+    }
+
+    #chart2 * {
+      box-sizing: inherit;
+    }
+
+    #chart2 h1 {
+      text-align: center;
+      font-family: "Noto Sans KR";
+    }
+
+    #chart2 h2 {
+      font-weight: 'bold';
+    }
+
+    #chart2 svg {
+      margin: auto;
+      display: block;
+    }
+
+    #chart2 .circle-overlay {
+      font-size: 15px;
+      border-radius: 10%;
+      position: absolute;
+      overflow: hidden;
+      /*it's buggy with the foreignObject background right now*/
+      /*background-color: rgba(255,255,255,0.5);*/
+    }
+
+    #chart2 .circle-overlay__inner {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #chart2 .hidden {
+      display: none;
+    }
+
+    #chart2 .node-icon--faded {
+      opacity: 0.2;
+    }
+
+    #chart2 .legend-size circle {
+      fill: rgb(31, 119, 180);
+    }
+  </style>
+  <!-- bubble chart codes end -->
+
+  <!-- gapminder chart codes-->
+  <meta charset="utf-8">
+  <link href="dragit.css" rel="stylesheet" />
+  <!-- <script src="d3.v3.js"></script> -->
+  <!-- <script src="dragit.js"></script> -->
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin-left: 40px;
+      font-weight: 200;
+      font-size: 14px;
+    }
+
+    html,
+    body {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
+  <!-- gapminder ends -->
+
+  <meta charset="utf-8">
+  <title>Avilon Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- noto sans import -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- linechart javascript Files -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.4/d3.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="britecharts.min.js" type="text/javascript"></script> -->
+  <!-- linechart css Files -->
+  <link rel="stylesheet" href="britecharts.min.css" type="text/css" />
+
+  <!-- =======================================================
+    Theme Name: Avilon
+    Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--d3 version test-->
+  <script src="js/d3.min.js"></script>
+  <script>
+    d3_bub = d3
+    window.d3 = null
+  </script>
+  <script src="d3.v3.js"></script>
+  <script>
+    d3_gap = d3
+    window.d3 = null
+    // test it worked
+    console.log('v3', d3_bub.version)
+    console.log('v4', d3_gap.version)
+
+    d3 = d3_bub
+  </script>
+  <script src="dragit.js"></script>
+  <!--version test ends-->
+
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header" style="background: linear-gradient(45deg, #20C2AA, #7A37F5); padding: 20px 0;  height: 72px;">
+    <div class="container">
+      <div id="logo" class="pull-left">
+        <h1><a href="index.html" class="scrollto">Lyricsis</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#intro"><img src="img/logo.png" alt="" title=""></a> -->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-has-children"><a href="#">Analysis</a>
+            <ul>
+              <li><a href="analysis-lyrics.html">Lyrics</a></li>
+              <li><a href="analysis-industry.html">Industry</a></li>
+            </ul>
+          </li>
+          <li class="menu-has-children"><a href="#">More</a>
+            <ul>
+              <li><a href="search_lyricist.html">Lyricist/Composer Top 100</a></li>
+              <li><a href="network_lyricist_gen1.html">Lyricist Network</a></li>
+              <li><a href="network_composer_gen1.html">Composer Network</a></li>
+            </ul>
+          <li class="menu-active"><a href="index.html#team2">Team Lyricsis</a></li>
+          </li>
+          <!-- <li><a href="#contact">Contact Us</a></li> -->
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <main id="main">
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+      <div style="width:100px; height:200px"></div>
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title" style="color:#20C2AA;">Analyze Industry</h3>
+          <span class="section-divider" style="width: 600px;"></span>
+          <p class="section-description" style="font-size:16px">
+            가사 분석을 해보니 저희는 궁금해졌습니다.<br>이런 가사는 누가 쓰는 걸까요?<br>이를 살펴보기 위해 저희는 가수와 음악정보에서 산업의 흐름을 파악해보았습니다.
+            </p>
+        </div>
+      </div>
+    <div style="width:200px; height:200px"></div>
+      <div align="center">
+        <a href="#team2" class="btn-get-started scrollto">
+          <img src="img/next.png">
+        </a>
+      </div>
+    </section>
+
+    <section id="team2">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-header wow fadeIn" data-wow-duration="1s">
+            <h3 class="section-title">그룹과 곡</h3>
+            <span class="section-divider"></span>
+            <p class="section-description">27년 간 활동한 그룹과 곡의 성비입니다. 그룹의 경우 남성 그룹이 1.07배 정도 많은 반면 곡 수는 무려 1.7배나 더 많이 발매했습니다.</p>
+            <div class="row wow fadeIn">
+            <div class="pic" style="height:auto; margin-bottom:10px; margin-left:200px;"><img src="img/industry/1.png"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:100px; height:100px"></div>
+    <div align="center">
+      <a href="#team" class="btn-get-started scrollto">
+        <img src="img/next.png">
+      </a>
+    </div>
+  </section>
+
+  <!--==========================
+              작사작곡 성비
+            ============================-->
+    <section id="team">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-header wow fadeIn" data-wow-duration="1s">
+            <h3 class="section-title">작사/작곡가 TOP100 성별 참여율</h3>
+            <span class="section-divider"></span>
+            <p class="section-description">아이돌에게 곡을 써주는 작사가와 작곡가는 어떤 성비로 이루어져 있을까요?<br>27년 동안의 데이터에서 가장 활발하게 작품 활동을 했던 100인을 기준으로 뽑아본 결과 비중은 남성이 압도적입니다.<br>흔히 소비자가 여성이 많다고 알려진 아이돌 산업이지만 프로덕션에는 여성의 영역이 현저히 부족한 상태입니다.</p>
+            <div class="row wow fadeIn">
+            <div class="pic" style="height:auto; margin-bottom:10px; margin-left:100px;"><img src="img/industry/2.png"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:100px; height:100px"></div>
+    <div align="center">
+      <a href="#features" class="btn-get-started scrollto">
+        <img src="img/next.png">
+      </a>
+    </div>
+  </section>
+
+    <!--==========================
+                예원 검색 차트 - 더 알아보기
+              ============================-->
+          <section id="features">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="section-header wow fadeIn" data-wow-duration="1s">
+                    <h3 class="section-title">작사/작곡가 TOP100</h3>
+                    <span class="section-divider"></span>
+                    <p class="section-description">어떤 작사/작곡가가 아이돌그룹에게 곡을 많이 주었는지 검색 할 수 있는 작사/작곡가 Top100차트입니다.<br>곡을 많이 발매한 작사/작곡가의 이름순으로 표시되며 데이터 상에서 솔로가수의 곡은 제외되었습니다.<br>이미지를 클릭해서 검색해보세요!<br><br>
+                    <span class="female">&bull;</span> 여성&nbsp;&nbsp; &nbsp;<span class="male">&bull;</span> 남성</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="row wow fadeIn">
+            <div class="container">
+              <a href="search_lyricist.html">
+                <img style="width:550px; height:auto;" align="left" src="img/작사.png" alt="">
+                <img style="width:550px; height:auto;" align="right" src="img/작곡.png" alt="">
+              </a>
+            </div>
+          </div>
+          <div style="width:100px; height:100px"></div>
+          <div align="center">
+            <a href="#gallery" class="btn-get-started scrollto">
+              <img src="img/next.png">
+            </a>
+          </div>
+          </section>
+
+          <!--==========================
+            Gallery Section
+          ============================-->
+          <section id="gallery">
+            <div class="container-fluid">
+              <div class="section-header">
+                <h3 class="section-title">작사/작곡가와 가수 네트워크 세대별 시각화</h3>
+                <span class="section-divider"></span>
+                <p class="section-description">어떤 작사/작곡가가 어떤 가수에게 곡을 써주었을까요?<br></p>
+              </div>
+
+              <div class="row no-gutters">
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-1.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-1.png" alt="">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-2.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-2.png" alt="">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-3.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-3.png" alt="">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-4.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-4.png" alt="">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-5.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-5.png" alt="">
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                  <div class="gallery-item wow fadeInUp">
+                    <a href="img/gallery/gallery-6.png" class="gallery-popup">
+                      <img src="img/gallery/gallery-6.png" alt="">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div style="width:100px; height:100px"></div>
+              <div align="center">
+                <a href="#top30" class="btn-get-started scrollto">
+                  <img src="img/next.png">
+                </a>
+              </div>
+              <div style="width:100px; height:100px"></div>
+            </div>
+          </section><!-- #gallery -->
+
+          <!--==========================
+          ============================-->
+    <section id="top30">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-header wow fadeIn" data-wow-duration="1s">
+            <h3 class="section-title">Since 2012 누가 작사를 하나?</h3>
+            <span class="section-divider"></span>
+            <p class="section-description">2012년부터 아이돌 곡 제작 트렌드가 변화하였는데, 바로 아이돌 멤버의 직접적인 작사/작곡 참여입니다. <br> 아래 그림은 2012년부터 상위 100명의 작사가가 담당한 곡 수를 보여주는 그림으로,<br>남성 아이돌은 여성 아이돌, 심지어는 전문 작사가와 비교해도 압도적인 압도적인 참여 비율을 자랑합니다.</p>
+            <div class="row wow fadeIn">
+            <div class="pic" style="height:auto; margin-bottom:10px; margin-left:100px;"><img src="img/industry/3.png"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:100px; height:100px"></div>
+    <div align="center">
+      <a href="#mratio" class="btn-get-started scrollto">
+        <img src="img/next.png">
+      </a>
+    </div>
+    </section>
+
+    <!--==========================
+            소현 멤버별 작사,작곡 참여율 그래프
+          ============================-->
+    <section id="mratio">
+      <div style="width:100%; height:60px"></div>
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-12">
+            <div class="section-header wow fadeIn" data-wow-duration="1s">
+              <h3 class="section-title">아이돌 멤버의 작곡작사 참여율 비교</h3>
+              <span class="section-divider"></span>
+              <p class="section-description">아이돌 멤버가 스스로의 곡 프로덕션에 참여한 비율은 어떨까요?<br>
+                1992년부터 2017년까지의 데이터를 모아보았습니다.<br><br>
+                2008년부터 멤버가 직접 작업하는 수가 급증하는데 이는 남성에 한정되어있습니다.<br>2015년부터 활동한 그룹 수는 남녀 모두 동일한데 프로덕션 참여 비율은 차이가 극명합니다.<br><br>
+                원의 크기는 그 해 활동한 그룹 수를 의미합니다.<br>
+
+              </p>
+              <div id="chart4" style="margin:0px"></div>
+              <div class="center_please" align="center">
+                <span id="min-time">1992</span>
+                <input type="range" name="points" min="0" max="26" step="1" value="0" id="slider-time" style="width:900px">
+                <span id="max-time">2018</span>
+                <br>
+                <p>
+                  <br>
+              </div>
+
+              <script>
+
+                // Various accessors that specify the four dimensions of data to visualize.
+              function x(d) { return d.lyricist; }
+              function y(d) { return d.composer; }
+              function radius(d) { return d.group_number; }
+              function colors(d) { return d.region; }
+              function key(d) { return d.name; }
+
+              // Chart dimensions.
+              var margin = {top: 19.5, right: 19.5, bottom: 19.5, left: 39.5},
+                  c4_width = 960 - margin.right,
+                  c4_height = 500 - margin.top - margin.bottom;
+
+              // Various scales. These domains make assumptions of data, naturally.
+              var xScale = d3_gap.scale.linear().domain([0, 350]).range([0, c4_width]),
+                  yScale = d3_gap.scale.linear().domain([0, 200]).range([c4_height, 0]),
+                  radiusScale = d3_gap.scale.sqrt().domain([0, 70]).range([0, 30]),
+                  // colorScale = d3_gap.scale.category10()
+                  colorScale = d3_gap.scale.linear()
+                    .domain([1, 2])
+                    .range(['#7A37F5', '#20C2AA']);
+
+              /// The x & y axes.
+              var xAxis = d3_gap.svg.axis().orient("bottom").scale(xScale),
+                  yAxis = d3_gap.svg.axis().scale(yScale).orient("left");
+              // Create the SVG container and set the origin.
+              var svgs = d3_gap.select("#chart4").append("svg")
+                  .attr("width", c4_width + margin.left + margin.right)
+                  .attr("height", c4_height + margin.top + margin.bottom)
+                .append("g")
+                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                  .attr("class", "gRoot")
+              // Add the x-axis.
+              svgs.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + c4_height + ")")
+                  .call(xAxis);
+              // Add the y-axis.
+              svgs.append("g")
+                  .attr("class", "y axis")
+                  .call(yAxis);
+              // Add an x-axis label.
+              svgs.append("text")
+                  .attr("class", "x label")
+                  .attr("text-anchor", "end")
+                  .attr("x", c4_width)
+                  .attr("y", c4_height - 6)
+                  .text("멤버가 작사한 곡 수");
+              // Add a y-axis label.
+              svgs.append("text")
+                  .attr("class", "y label")
+                  .attr("text-anchor", "end")
+                  .attr("y", 6)
+                  .attr("dy", ".75em")
+                  .attr("transform", "rotate(-90)")
+                  .text("멤버가 작곡한 곡 수");
+
+              // Add the year label; the value is set on transition.
+              var label = svgs.append("text")
+                  .attr("class", "year label")
+                  .attr("text-anchor", "end")
+                  .attr("y", c4_height - 24)
+                  .attr("x", c4_width)
+                  .text(1992);
+
+              // Add the country label; the value is set on transition.
+              var countrylabel = svgs.append("text")
+                  .attr("class", "country label")
+                  .attr("text-anchor", "start")
+                  .attr("y", 80)
+                  .attr("x", 20)
+                  .text(" ");
+
+              var first_time = true;
+
+              // Load the data.
+              d3_gap.json("data/nations.json", function(nations) {
+
+                // A bisector since many nation's data is sparsely-defined.
+                var bisect = d3_gap.bisector(function(d) { return d[0]; });
+
+                // Add a dot per nation. Initialize the data at 1993, and set the colors.
+                var dot = svgs.append("g")
+                    .attr("class", "dots")
+                  .selectAll(".dot")
+                    .data(interpolateData(1992))
+                  .enter().append("circle")
+                    .attr("class", "dot")
+                    // .style("fill", function(d) { return colorScale(color(d)); })
+                    .style("fill", function(d) { return colorScale(colors(d)); })
+                    .style("stroke-opacity", "0")
+                    .call(position)
+                    .on("mousedow", function(d, i) {
+
+                    })
+                    .on("mouseup", function(d, i) {
+                      dot.classed("selected", false);
+                      d3_gap.select(this).classed("selected", !d3_gap.select(this).classed("selected"));
+                      dragit.trajectory.display(d, i, "selected");
+
+                      //TODO: test if has been dragged
+                      // Look at the state machine history and find a drag event in it?
+
+                    })
+                    .on("mouseenter", function(d, i) {
+                      clear_demo();
+                      if(dragit.statemachine.current_state == "idle") {
+                        dragit.trajectory.display(d, i)
+                        dragit.utils.animateTrajectory(dragit.trajectory.display(d, i), dragit.time.current, 1000)
+                        countrylabel.text(d.name);
+                        dot.style("opacity", .4)
+                        d3_gap.select(this).style("opacity", 1)
+                        d3_gap.selectAll(".selected").style("opacity", 1)
+                      }
+                    })
+                    .on("mouseleave", function(d, i) {
+
+                      if(dragit.statemachine.current_state == "idle") {
+                        countrylabel.text("");
+                        dot.style("opacity", 1);
+                      }
+
+                      dragit.trajectory.remove(d, i);
+                    })
+                    .call(dragit.object.activate)
+
+                // Add a title.
+                dot.append("title")
+                    .text(function(d) { return d.name; });
+
+                // Start a transition that interpolates the data based on year.
+                svgs.transition()
+                    .duration(30000)
+                    .ease("linear")
+
+                // Positions the dots based on data.
+                function position(dot) {
+                  dot.attr("cx", function(d) { return xScale(x(d)); })
+                     .attr("cy", function(d) { return yScale(y(d)); })
+                     .attr("r", function(d) { return radiusScale(radius(d)); });
+                }
+
+                // Defines a sort order so that the smallest dots are drawn on top.
+                function order(a, b) {
+                  return radius(b) - radius(a);
+                }
+
+                // Updates the display to show the specified year.
+                function displayYear(year) {
+                  dot.data(interpolateData(year+dragit.time.min), key).call(position).sort(order);
+                  label.text(dragit.time.min + Math.round(year));
+                }
+
+                // Interpolates the dataset for the given (fractional) year.
+                function interpolateData(year) {
+                  return nations.map(function(d) {
+                    return {
+                      name: d.name,
+                      region: d.region,
+                      lyricist: interpolateValues(d.lyricist, year),
+                      group_number: interpolateValues(d.group_number, year),
+                      composer: interpolateValues(d.composer, year)
+                    };
+                  });
+                }
+
+                // Finds (and possibly interpolates) the value for the specified year.
+                function interpolateValues(values, year) {
+                  var i = bisect.left(values, year, 0, values.length - 1),
+                      a = values[i];
+                  if (i > 0) {
+                    var b = values[i - 1],
+                        t = (year - a[0]) / (b[0] - a[0]);
+                    return a[1] * (1 - t) + b[1] * t;
+                  }
+                  return a[1];
+                }
+
+                init();
+
+                function update(v, duration) {
+                  dragit.time.current = v || dragit.time.current;
+                  displayYear(dragit.time.current)
+                  d3_gap.select("#slider-time").property("value", dragit.time.current);
+                }
+
+                function init() {
+
+                  dragit.init(".gRoot");
+
+                  dragit.time = {min:1992, max:2019, step:1, current:1992}
+                  dragit.data = d3_gap.range(nations.length).map(function() { return Array(); })
+
+                  for(var yy = 1992; yy<2019; yy++) {
+
+                    interpolateData(yy).filter(function(d, i) {
+                      dragit.data[i][yy-dragit.time.min] = [xScale(x(d)), yScale(y(d))];
+
+                    })
+                  }
+
+                  dragit.evt.register("update", update);
+
+                  //d3_gap.select("#slider-time").property("value", dragit.time.current);
+
+                  d3_gap.select("#slider-time")
+                    .on("mousemove", function() {
+                      update(parseInt(this.value), 500);
+                      clear_demo();
+                    })
+
+                  var end_effect = function() {
+                    countrylabel.text("");
+                    dot.style("opacity", 1)
+                  }
+
+                  dragit.evt.register("dragend", end_effect)
+                }
+
+              function clear_demo() {
+                if(first_time) {
+                   svgs.transition().duration(0);
+                  first_time = false;
+                  window.clearInterval(demo_interval);
+                  countrylabel.text("");
+                  dragit.trajectory.removeAll();
+                  d3_gap.selectAll(".dot").style("opacity", 1)
+                }
+              }
+
+              function play_demo() {
+
+                var ex_nations = ["China", "India", "Indonesia", "Italy", "France", "Spain", "Germany", "United States"]
+                var index_random_nation = null;
+                var random_index = Math.floor(Math.random() * ex_nations.length);
+                var random_nation = nations.filter(function(d, i) {
+                  if(d.name == ex_nations[random_index]) {
+                    index_random_nation = i;
+                    return true;
+                  }
+                })[0];
+
+                var random_nation = nations[index_random_nation];
+
+                dragit.trajectory.removeAll();
+                dragit.trajectory.display(random_nation, index_random_nation);
+                countrylabel.text(random_nation.name);
+
+                dragit.utils.animateTrajectory(dragit.lineTrajectory, dragit.time.min, 2000)
+
+                d3_gap.selectAll(".dot").style("opacity", .4)
+
+                d3_gap.selectAll(".dot").filter(function(d) {
+                  return d.name == random_nation.name;
+                }).style("opacity", 1)
+              }
+
+              var demo_interval = null;
+
+              setTimeout(function() {
+                if(first_time) {
+                  play_demo()
+                  demo_interval = setInterval(play_demo, 3000)
+                }
+              }, 1000);
+
+              });
+
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div align="center">
+      <a href="#data_sum" class="btn-get-started scrollto">
+        <img src="img/next.png">
+      </a>
+    </div>
+    <div style="width:100%; height:100px"></div>
+
+
+
+    <!-- <div style="width:100%; height:150px"></div> -->
+    <!--==========================
+      3대 소속사별 가사 비교
+    ============================-->
+
+    <!-- <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">3대 소속사별 여자아이돌 표현 단어</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">가사로 알아보는 3대소속사(SM/YG/JYP) 여자 아이돌 표현</p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/nlp/sm_bubble.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/nlp/yg_bubble.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/nlp/jyp_bubble.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+    </section> -->
+<section id="data_sum">
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="section-header wow fadeIn" data-wow-duration="1s">
+        <h3 class="section-title">사장님, 답장 좀 해주세요</h3>
+        <span class="section-divider"></span>
+        <p class="section-description">단순한 수치를 넘어서서 실제로 이미 대중에게 인정받은 여자 아이돌이<br>프로덕션에 참가할 기회를 얻지 못한다는 이야기를 저희는 심심찮게 접할 수 있습니다.<br><br>
+        CL의 경우 작사/작곡에 꾸준히 참여해왔지만 소속사 대표인 양현석이 앨범을 제작해주지 않아 인스타그램 댓글에<br>“사장님 저는요? 문자 답장 좀 해주세요”라고 불만을 터트리고 있습니다.<br><br>
+        EXID의 LE도 비슷합니다. EXID가 섹시한 춤을 추는 걸그룹 이미지로 굳어지면서,<br>LE가 10대 중반부터 랩을 하고 음악을 만들기 시작했다는 것을 대중들은 인식하지 못합니다.<br>자신의 스타일로 랩을 만들어도 회사가 걸그룹의 이미지에 어울리지 않다며 반영해주지 않기 때문입니다.
+        </p>
+        <div class="row wow fadeIn">
+        <div class="pic" style="height:auto; margin-bottom:10px; margin-left:350px;"><img src="img/industry/4.png"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="width:100px; height:100px"></div>
+<div align="center">
+  <a href="#intro" class="btn-get-started scrollto">
+    <img src="img/next.png">
+  </a>
+</div>
+<div style="width:100%; height:100px"></div>
+
+</section>
+
+    <!--==========================
+            마무리, 결론
+          ============================-->
+    <section id="intro">
+
+      <div class="intro-text">
+        <h3 style="color:#fff;">아이돌 산업, 이대로 괜찮을까요?</h3>
+        <p style="font-size:23px;">여성 아이돌이 능력보다 외모로 평가받는 이 현상은 어쩌면 가사에서 본 것처럼 <br>여성에게 외모가 더 중요하다고 여기는 사회의 모습을 대변하고 있는지도 모릅니다.<br>
+        세계적인 인기를 얻고 있는 케이팝이지만 아직도 이면엔 젠더 불균형과 여성 배척이 당연시 되는 환경이 자리하고 있습니다.<br>
+        시장 논리를 무시할 수 없는 것은 사실입니다. <br>그러나 보다 주체적인 소비자로, 또 이러한 노래를 듣고 자라나는 어린 아이들을 위해서도<br> 여성 아이돌이 소비되는 방식과 가사를 비판적으로 바라보는 시각이 자리 잡았으면 좋겠습니다.
+        </p>
+      </div>
+
+    </section>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="#intro" class="scrollto">Home</a>
+            <a href="#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+  <!-- gapminder code-->
+  <script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+
+</body>
+
+</html>

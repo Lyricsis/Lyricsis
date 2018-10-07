@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- bubble chart codes-->
+
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, Calibri, Roboto, Open Sans, sans-serif -webkit-backface-visibility: hidden;
+    }
+
+    #chart2 * {
+      box-sizing: inherit;
+    }
+
+    #chart2 h1 {
+      text-align: center;
+      font-family: "Noto Sans KR";
+    }
+
+    #chart2 h2 {
+      font-weight: 'bold';
+    }
+
+    #chart2 svg {
+      margin: auto;
+      display: block;
+    }
+
+    #chart2 .circle-overlay {
+      font-size: 15px;
+      border-radius: 10%;
+      position: absolute;
+      overflow: hidden;
+      /*it's buggy with the foreignObject background right now*/
+      /*background-color: rgba(255,255,255,0.5);*/
+    }
+
+    #chart2 .circle-overlay__inner {
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    #chart2 .hidden {
+      display: none;
+    }
+
+    #chart2 .node-icon--faded {
+      opacity: 0.2;
+    }
+
+    #chart2 .legend-size circle {
+      fill: rgb(31, 119, 180);
+    }
+  </style>
+  <!-- bubble chart codes end -->
+
+  <!-- gapminder chart codes-->
+  <meta charset="utf-8">
+  <link href="dragit.css" rel="stylesheet" />
+  <!-- <script src="d3.v3.js"></script> -->
+  <!-- <script src="dragit.js"></script> -->
+
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin-left: 40px;
+      font-weight: 200;
+      font-size: 14px;
+    }
+
+    html,
+    body {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  </style>
+  <!-- gapminder ends -->
+
+  <meta charset="utf-8">
+  <title>Avilon Bootstrap Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- noto sans import -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- linechart javascript Files -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.4/d3.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js" type="text/javascript"></script>
+  <script src="britecharts.min.js" type="text/javascript"></script> -->
+  <!-- linechart css Files -->
+  <link rel="stylesheet" href="britecharts.min.css" type="text/css" />
+
+  <!-- =======================================================
+    Theme Name: Avilon
+    Theme URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--d3 version test-->
+  <script src="js/d3.min.js"></script>
+  <script>
+    d3_bub = d3
+    window.d3 = null
+  </script>
+  <script src="d3.v3.js"></script>
+  <script>
+    d3_gap = d3
+    window.d3 = null
+    // test it worked
+    console.log('v3', d3_bub.version)
+    console.log('v4', d3_gap.version)
+
+    d3 = d3_bub
+  </script>
+  <script src="dragit.js"></script>
+  <!--version test ends-->
+
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="index.html" class="scrollto">Lyricsis</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="#intro"><img src="img/logo.png" alt="" title=""></a> -->
+      </div>
+
+    <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-has-children"><a href="#">Analysis</a>
+            <ul>
+              <li><a href="analysis-lyrics.html">Lyrics</a></li>
+              <li><a href="analysis-industry.html">Industry</a></li>
+            </ul>
+          </li>
+          <li class="menu-has-children"><a href="#">More</a>
+            <ul>
+              <li><a href="search_lyricist.html">Lyricist/Composer Top 100</a></li>
+              <li><a href="network_lyricist_gen1.html">Lyricist Network</a></li>
+              <li><a href="network_composer_gen1.html">Composer Network</a></li>
+            </ul>
+          <li class="menu-active"><a href="#team2">Team Lyricsis</a></li>
+          </li>
+          <!-- <li><a href="#contact">Contact Us</a></li> -->
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+
+
+    <div class="intro-text">
+      <h2>Analyze Lyrics</h2><br>
+      <h5 id="subtitle" style="font-style: italic;">가사 속에서 여성의 외모를 언급하거나 여성의 신체부위를 선정적으로 표현하는 빈도가 높을까?</h5>
+      <p>Analysis of the comparison between the lyrics of female and male idol groups</p>
+      <a href="#about" class="btn-get-started scrollto">Get Started</a>
+      <!-- <div class="icon"><i class="ion-ios-arrow-down"> -->
+    </div>
+
+    <div class="product-screens">
+
+      <div class="product-screen-1 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="0.6s">
+        <img src="img/product-screen-1.png" alt="">
+      </div>
+
+      <div class="product-screen-2 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.6s">
+        <img src="img/product-screen-2.png" alt="">
+      </div>
+
+      <div class="product-screen-3 wow fadeInUp" data-wow-duration="0.6s">
+        <img src="img/product-screen-3.png" alt="">
+      </div>
+
+    </div>
+
+  </section><!-- #intro -->
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title">본격적인 기시감 파헤치기</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">우선 가사를 통해 저희가 문제 의식을 느꼈던 부분을 살펴보겠습니다.<br>
+          우리가 외양 평가를 할 때 가장 보편적으로 사용하는 형용사는 바로 ‘예쁘다, 잘생기다’ 입니다. <br>
+          </p>
+            <div class="row wow fadeInUp">
+              <div class="col-12">
+                <div class="member" align="center">
+                   <div class="pic"><img src="img/lyrics/lyrics1.png" width="60%" alt=""></div>
+                </div>
+              </div>
+            </div>
+          <p class="section-description">
+            우선 가사를 통해 저희가 문제 의식을 느꼈던 부분을 살펴보겠습니다.<br>
+            우리가 외양 평가를 할 때 가장 보편적으로 사용하는 형용사는 바로 ‘예쁘다, 잘생기다’ 입니다.<br> 
+            총 만곡 중에서 ‘예쁘다’는 표현이 등장한 곡은 1051곡 이었으며 ‘잘생기다'는 표현이 등장한 곡은 28곡 입니다. <br>
+            예쁘다는 표현은 잘생겼다라는 표현에 무려 삼팔배! 38배나 많이 등장한 것을 알 수 있습니다. <br>
+          </p>
+        </div>
+      </div>
+      <div align="center">
+        <a href="#team" class="btn-get-started scrollto">
+          <img src="img/next.png">
+        </a>
+      </div>
+    </section>
+
+    <!--==========================
+          More Features Section
+        ============================-->
+    <!--==========================
+                  성적인 단어, 외모 언급
+                  ============================-->
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">타이틀곡에서의 예쁜 vs 잘생긴</h3>
+          <span class="section-divider"></span>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member" align="center">
+              <div class="pic"><img src="img/lyrics/lyrics2.png" width="60%" alt=""></div>
+               <p class="section-description">
+               그렇다면 아이돌이 주력으로 활동하는 타이틀곡안에서는 어떨까요? <br>
+               타이틀로 추출된 총 2400 곡에서 예쁘다는 표현은 275곡,<br>
+               잘생겼다는 표현은 단 9곡에서 등장한 것을 알 수 있었으며, <br>
+               이번에도 이 차이는 31배에 달합니다. <br>
+               수록곡은 물론 타이틀곡에서도 비슷한 비율로 등장 빈도의 차이가 있다는 것을 알 수 있습니다. <br>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div align="center">
+          <a href="#team" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+        <div style="width:100%; height:100px"></div>
+    </section>
+
+    <!--==========================
+          예쁜, 잘생긴, 멋진
+          ============================-->
+    <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">언어의 모호성, 맥락을 통해 살펴보기!</h3>
+          <span class="section-divider"></span>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics3.png" width="60%" alt=""></div>
+              <p class="section-description">
+              그러나 인간의 언어는 ‘모호성'이 존재합니다. 같은 단어더라도 전혀 다른 의미에서 사용될 수도 있습니다.<br>
+              방금 확인해본 1051곡에서 등장한 예쁜이  예쁜추억, 예쁜 마음과 같이 외양묘사가 아닌 의미에서 쓰인 것은 아닐까요? <br>
+              그렇기에 이번에는 단어가 등장하는 맥락도 함께 살펴보겠습니다. <br>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div align="center">
+          <a href="#team" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+        <div style="width:100%; height:100px"></div>
+    </section>
+
+    <!--==========================
+                여성 신체부위와 성적 맥락
+                ============================-->
+
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">Keyword In Context</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">앞서 보았던 예쁜이라는 형용사의 앞,뒤로 뛰어쓰기를 기준으로 5개를 토큰을 추출해서 보면,<br>만 곡의 가사를 일일이 다 보지 않아도 해당 단어가 실제로 어떤 맥락에 쓰이는지 어느정도 확인 해 볼 수 있습니다.<br> </p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics4.jpg" width="80%" alt=""></div>
+            </div>
+          </div>
+        </div>
+        <div align="center">
+          <a href="#team" class="btn-get-started scrollto">
+            <img src="img/next.png">
+          </a>
+        </div>
+    </section>
+
+    <!--==========================
+                    가사 최빈 남여 표현 차이
+                    ============================-->
+
+    <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">전체 가사에서 자주 등장하는 표현의 남/여 비율 비교</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">예쁜이 가장 많이 수식하는 단어는 ‘‘얼굴, 여자, 옷’ 이었는데요.<br>
+          예쁘다라는 표현이  주로 여성을 대상으로 쓰는 형용사라는 점과,<br>
+          얼굴. 옷을 통해 외양묘사를 나타낼때 주로 사용된다는점을 알 수 있습니다.<br>
+          그럼 잘생긴은 어떨까요?<br><br>   
+          네. 잘생긴 부처님이 가장 많이 등장했습니다.<br>
+          </p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics5.png" width="80%" alt=""></div>
+              <!-- <h4>버블차트 이미지</h4> -->
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!--==========================
+                      부처핸섬
+                      ============================-->
+
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">WordCloud</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">‘남자'와 함께 ‘부처님', ‘부처핸섬'이라는 단어가 눈에 띕니다.<br>
+            사실 이는 잘생긴이 등장했던 개별적인 곡이 무척 적어서 멋진이라는 단어가 등장하는 모든 문장을 다 본 것 이기 때문입니다.<br> 실제로 하나의 곡안에서 풋유어핸섭을 부처핸섬으로 언어유희를 통해 표현한 것 이었습니다.<br>
+          </p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics6.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+  
+
+    <!--==========================
+                한 세트의 형용사 
+                ============================-->
+
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">한 세트처럼 등장하는 형용사</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">이처럼 단어의 맥락을 함께 보다보면 재미있는 것들을 많이 찾을 수 있었습니다.<br> 예를들어 립스틱은 항상 빨간과 등장하고, 치마는 짧은과, 스타킹은 까만 스타킹, 하이힐은 항상 아찔한과 함께 발견됩니다.<br> 심지어 이 네 단어는 가사속에서 마치 한 세트처럼 한문장으로 등장하고 있었습니다.<br><br>
+          저희가 여기서 더 주목할 수 있었던 점은 <br>
+          남성아이돌의 곡보다 여성아이돌의 곡에서<br>
+          립스틱, 하이힐 ,치마, 스타킹 등을 활용하여 성적으로 대상화하는 가사가 많이 등장한다는 것 이었습니다.<br> 
+          </p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics7.png" width="60%" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+
+        <!--==========================
+                가사분석의 중간 결론 
+                ============================-->
+
+    <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">가사 속 많이 등장하는 단어 : 하이힐</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">다시 처음으로 돌아가서 문제의식을 통해 도출된 가설을 보겠습니다.<br>
+            "여성의 성적 대상화나 외양 평가의 빈도가 남성에 비해 전체곡에서 38배가 많다." <br>생각보다도 더 차이가 있었다는 것을 알 수 있었습니다. <br> 
+          </p>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics8.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+        <div class="row wow fadeInUp">
+          <div class="col-12">
+            <div class="member">
+              <div class="pic"><img src="img/lyrics/lyrics9.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--========
+
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="#intro" class="scrollto">Home</a>
+            <a href="#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+  <!-- gapminder code-->
+  <script type="text/javascript" src="https://apis.google.com/js/platform.js"></script>
+
+</body>
+
+</html>
