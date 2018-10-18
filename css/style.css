@@ -1242,6 +1242,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   overflow: hidden;
 }
 
+#team2 p {
+  font-size: 15px;
+  line-height: 27px;
+}
+
 #team2 .member {
   text-align: center;
   /* margin-bottom: 20px; */
@@ -1282,14 +1287,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding-bottom: 10px;
 }
 
+#team2 .m_name p {
+  font-size: 13px;
+  line-height: 22px;
+}
+
 #team2 .member h4 {
   font-weight: 700;
   margin-bottom: 2px;
   font-size: 18px;
-}
-
-#team2 p {
-  font-size: 15px;
 }
 
 #team2 .member span {
